@@ -2,9 +2,13 @@ package ufrn.br.aulawebrest.model;
 
 import lombok.*;
 import org.hibernate.Hibernate;
+import ufrn.br.aulawebrest.dto.ClienteDto;
+import ufrn.br.aulawebrest.dto.EnderecoDto;
+import ufrn.br.aulawebrest.dto.generic.AbstractDto;
 import ufrn.br.aulawebrest.model.generic.AbstractEntity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 import java.util.Objects;
 
@@ -16,8 +20,9 @@ import java.util.Objects;
 @Entity
 public class Cliente extends AbstractEntity {
 
+    @NotBlank(message = "Nome não pode ser em branco ou vazio.")
     String nome;
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne (orphanRemoval = true, cascade = CascadeType.ALL)
     @JoinColumn(name = "endereco_id")
     Endereco endereco;
 
@@ -70,5 +75,17 @@ public class Cliente extends AbstractEntity {
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+
+    public AbstractDto<Cliente> convertToDto() {
+
+        ClienteDto dto = new ClienteDto();
+
+        dto.setNome(this.nome);
+        dto.setEndereco(this.endereco);
+        dto.setPedidos(this.pedidos);
+
+        return dto;
     }
 }

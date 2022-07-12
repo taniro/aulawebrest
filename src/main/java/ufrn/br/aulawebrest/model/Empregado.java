@@ -2,6 +2,7 @@ package ufrn.br.aulawebrest.model;
 
 import lombok.*;
 import org.hibernate.Hibernate;
+import ufrn.br.aulawebrest.dto.generic.AbstractDto;
 import ufrn.br.aulawebrest.model.generic.AbstractEntity;
 
 import javax.persistence.Entity;
@@ -32,5 +33,10 @@ public class Empregado extends AbstractEntity {
 	@Override
 	public int hashCode() {
 		return getClass().hashCode();
+	}
+
+	@Override
+	public AbstractDto<Empregado> convertToDto() {
+		return null;
 	}
 }

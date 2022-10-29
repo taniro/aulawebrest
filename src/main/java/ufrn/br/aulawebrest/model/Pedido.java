@@ -21,6 +21,7 @@ public class Pedido extends AbstractEntity {
     Long id;
     String dataPedido;
 
+    /*
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     Cliente cliente;
@@ -32,6 +33,8 @@ public class Pedido extends AbstractEntity {
             inverseJoinColumns = @JoinColumn(name = "produto_id")
     )
     List<Produto> produtos;
+
+     */
 
     @Override
     public boolean equals(Object o) {

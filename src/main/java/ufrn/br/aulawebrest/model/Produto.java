@@ -18,9 +18,12 @@ import java.util.Objects;
 public class Produto extends AbstractEntity {
     String descricao;
 
+    /*
     @ManyToMany(mappedBy = "produtos")
     @ToString.Exclude
     List<Pedido> pedidos;
+
+     */
 
     @Override
     public boolean equals(Object o) {

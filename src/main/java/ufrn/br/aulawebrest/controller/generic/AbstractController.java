@@ -1,7 +1,9 @@
 package ufrn.br.aulawebrest.controller.generic;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import ufrn.br.aulawebrest.model.generic.AbstractEntity;
 import ufrn.br.aulawebrest.service.generic.AbstractService;
 
@@ -49,9 +51,18 @@ public class AbstractController <E extends AbstractEntity, S extends AbstractSer
     @Override
     @GetMapping(path = {"/{id}"})
     public ResponseEntity<E> findById(@PathVariable Long id) {
+        return  ResponseEntity.ok().body( (E) service.findById(id));
+        /*
+        try {
+            return  ResponseEntity.ok().body( (E) service.findById(id));
+        }catch(Exception e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not Found", e);
+        }
+        */
+        /*
         return (ResponseEntity<E>) service.findById(id)
                 .map(record -> ResponseEntity.ok().body( (E) record))
-                .orElse(ResponseEntity.notFound().build());
+                .orElse(ResponseEntity.notFound().build());*/
     }
 
     @Override

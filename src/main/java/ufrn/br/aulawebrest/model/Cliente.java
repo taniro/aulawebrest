@@ -1,29 +1,34 @@
 package ufrn.br.aulawebrest.model;
 
-import lombok.*;
-import org.hibernate.Hibernate;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import ufrn.br.aulawebrest.model.generic.AbstractEntity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
-import java.util.Objects;
 
+
+@Entity
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-@ToString
-@Entity
 public class Cliente extends AbstractEntity {
 
+    @NotBlank(message = "Nome não pode estar em branco ou vazio.")
     String nome;
-    @OneToOne(fetch = FetchType.EAGER)
+
+    /*
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "endereco_id")
     Endereco endereco;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "cliente")
-    @ToString.Exclude
     List<Pedido> pedidos;
+
+     */
 
     //Outras opções de mapeamento não utilizadas
     /*
@@ -59,16 +64,4 @@ public class Cliente extends AbstractEntity {
     List<Pedido> pedidos;
      */
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Cliente cliente = (Cliente) o;
-        return getId() != null && Objects.equals(getId(), cliente.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
 }

@@ -3,6 +3,7 @@ package ufrn.br.aulawebrest.service.generic;
 import ufrn.br.aulawebrest.model.generic.AbstractEntity;
 import ufrn.br.aulawebrest.repository.generic.GenericRepository;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,24 +13,6 @@ public abstract class AbstractService<E extends AbstractEntity, R extends Generi
     public AbstractService(R repository) {
         this.repository = repository;
     }
-
-    /*
-    @Override
-    public List<E> findAll(
-            @RequestParam(value = "_sort", defaultValue = "id") String sort,
-            @RequestParam(value = "_start", defaultValue = "0") int page,
-            @RequestParam(value = "_end", defaultValue = "10") int perPage,
-            @RequestParam(value = "_order", defaultValue = "ASC") String order,
-            @RequestParam(value = "q", defaultValue = "") String query
-    ) {
-
-        return SearchBuilder
-                .usingRepository(repository)
-                .filterBy(Collections.singletonList("name:>" + query))
-                .sortBy(sort, order)
-                .findAll(page, perPage);
-    }
-     */
 
     @Override
     public List<E> findAll(){
@@ -42,8 +25,13 @@ public abstract class AbstractService<E extends AbstractEntity, R extends Generi
     }
 
     @Override
-    public Optional<E> findById(Long id) {
-        return repository.findById(id);
+    public E findById(Long id) {
+        Optional<E> entity = repository.findById(id);
+        if (entity.isPresent()){
+            return entity.get();
+        }else{
+            throw new EntityNotFoundException("Entity with id "+ id+ " was not found in the server.");
+        }
     }
 
     @Override

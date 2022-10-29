@@ -9,7 +9,7 @@ public interface IGenericService <E extends AbstractEntity>  {
     //List<E> findAll(String sort, int page, int perPage, String order, String query);
     List<E> findAll();
     E create(E entity);
-    Optional<E> findById(Long id);
+    E findById(Long id);
     Optional<E> update(Long id, E entity);
     Boolean delete(Long id);
 }

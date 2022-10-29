@@ -10,4 +10,6 @@ public class ClienteService extends AbstractService<Cliente, ClienteRepository> 
     public ClienteService(ClienteRepository repository) {
         super(repository);
     }
+
+
 }

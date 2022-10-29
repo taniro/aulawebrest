@@ -18,8 +18,11 @@ public class Endereco extends AbstractEntity {
 
     String rua;
 
+    /*
     @OneToOne(mappedBy = "endereco")
     Cliente cliente;
+
+     */
 
 
     /*
